@@ -2,44 +2,110 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Start Eliza",
+            "label": "Setup WSL Environment",
             "type": "shell",
-            "command": "wsl",
+            "command": "C:\\WINDOWS\\System32\\wsl.exe",
             "args": [
-                "--cd",
-                "/mnt/c/Users/Brady/eliza_ari/eliza"
+                "-d",
+                "Ubuntu",
+                "--",
+                "/bin/bash",
+                "-ic",
+                "sudo apt-get update && sudo apt-get install -y ca-certificates curl gnupg && sudo mkdir -p /etc/apt/keyrings && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && echo \"deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main\" | sudo tee /etc/apt/sources.list.d/nodesource.list && sudo apt-get update && sudo apt-get install -y nodejs && sudo npm install -g pnpm"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true,
+                "focus": true
+            }
+        },
+        {
+            "label": "Install Dependencies",
+            "type": "shell",
+            "command": "pnpm",
+            "args": ["install"],
+            "options": {
+                "cwd": "${workspaceFolder}"
             },
             "presentation": {
                 "reveal": "always",
-                "panel": "new"
+                "panel": "shared",
+                "clear": true,
+                "focus": true
+            }
+        },
+        {
+            "label": "Install Frontend Dependencies",
+            "type": "shell",
+            "command": "pnpm",
+            "args": ["install"],
+            "options": {
+                "cwd": "${workspaceFolder}/client"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true,
+                "focus": true
             }
         },
         {
             "label": "Start ARI",
             "type": "shell",
-            "command": "wsl",
+            "command": "pnpm",
             "args": [
-                "--cd",
-                "/mnt/c/Users/Brady/eliza_ari/eliza"
+                "start",
+                "--characters=characters/ari.character.json"
             ],
-            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "presentation": {
                 "reveal": "always",
-                "panel": "new"
-            }
+                "panel": "new",
+                "clear": true,
+                "focus": true
+            },
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^.*$"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^.*Starting server.*$",
+                    "endsPattern": "^.*Server started.*$"
+                }
+            },
+            "dependsOn": ["Install Dependencies"]
         },
         {
-            "label": "Open Ubuntu",
+            "label": "Start Frontend",
             "type": "shell",
-            "command": "wsl",
-            "group": "test",
+            "command": "pnpm",
+            "args": [
+                "dev",
+                "--host"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/client"
+            },
             "presentation": {
                 "reveal": "always",
-                "panel": "new"
+                "panel": "new",
+                "clear": true,
+                "focus": true
+            },
+            "dependsOn": ["Install Frontend Dependencies"]
+        },
+        {
+            "label": "Start All",
+            "dependsOrder": "sequence",
+            "dependsOn": ["Start ARI", "Start Frontend"],
+            "group": {
+                "kind": "test",
+                "isDefault": true
             }
         }
     ]

@@ -1,17 +1,17 @@
 [
     {
-        "key": "ctrl+alt+e",
+        "key": "ctrl+shift+1",
         "command": "workbench.action.tasks.runTask",
-        "args": "Start Eliza"
+        "args": "Setup WSL Environment"
     },
     {
-        "key": "ctrl+alt+a",
+        "key": "ctrl+shift+2",
         "command": "workbench.action.tasks.runTask",
         "args": "Start ARI"
     },
     {
-        "key": "ctrl+alt+u",
+        "key": "ctrl+shift+3",
         "command": "workbench.action.tasks.runTask",
-        "args": "Open Ubuntu"
+        "args": "Start Frontend"
     }
 ]
