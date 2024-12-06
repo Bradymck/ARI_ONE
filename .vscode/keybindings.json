@@ -1,0 +1,17 @@
+[
+    {
+        "key": "ctrl+alt+e",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Start Eliza"
+    },
+    {
+        "key": "ctrl+alt+a",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Start ARI"
+    },
+    {
+        "key": "ctrl+alt+u",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Open Ubuntu"
+    }
+]

@@ -1,16 +1,46 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
         {
-            "type": "typescript",
-            "tsconfig": "packages/core/tsconfig.json",
-            "problemMatcher": [
-                "$tsc"
+            "label": "Start Eliza",
+            "type": "shell",
+            "command": "wsl",
+            "args": [
+                "--cd",
+                "/mnt/c/Users/Brady/eliza_ari/eliza"
             ],
-            "label": "tsbuild",
-            "group": "build"
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "Start ARI",
+            "type": "shell",
+            "command": "wsl",
+            "args": [
+                "--cd",
+                "/mnt/c/Users/Brady/eliza_ari/eliza"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "Open Ubuntu",
+            "type": "shell",
+            "command": "wsl",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
         }
     ]
 }
